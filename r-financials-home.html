@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R Financials | Institutional-Quality Financial & Strategic Support</title>
+<meta name="description" content="An outsourced analytical bench for investment firms and operating companies. Institutional-quality financial modeling, investment analysis, valuation, diligence and transaction support, without adding full-time headcount.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1E3D;
+    --navy-deep:#081730;
+    --ink:#14161A;
+    --gold:#B4915A;
+    --gold-lt:#C9A96A;
+    --green:#2E4A34;
+    --paper:#FBFAF7;
+    --paper-2:#F4F1EA;
+    --white:#FFFFFF;
+    --slate:#5B6470;
+    --line:#E4DFD4;
+    --line-navy:rgba(201,169,106,.28);
+
+    --serif:"Cormorant Garamond",Georgia,serif;
+    --display:"Cinzel",Georgia,serif;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+    --wrap:1180px;
+    --gutter:clamp(20px,5vw,64px);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.6;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block}
+  ::selection{background:var(--gold);color:var(--navy)}
+
+  .wrap{max-width:var(--wrap);margin:0 auto;padding-inline:var(--gutter)}
+
+  /* ---------- Typographic roles ---------- */
+  .eyebrow{
+    font-family:var(--display);
+    font-weight:500;
+    font-size:.72rem;
+    letter-spacing:.34em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:inline-flex;
+    align-items:center;
+    gap:.85em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:26px;height:1px;background:var(--gold);
+    display:inline-block;opacity:.7;
+  }
+  h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08;letter-spacing:-.01em}
+  h2{font-size:clamp(1.9rem,3.6vw,3rem)}
+  h3{font-size:1.35rem;line-height:1.2}
+  .lede{font-size:clamp(1.05rem,1.5vw,1.22rem);color:var(--slate);line-height:1.65;max-width:56ch}
+
+  /* ---------- Diamond mark ---------- */
+  .mark{flex:none}
+  .mark .d{fill:none;stroke:var(--gold);stroke-width:1}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    font-family:var(--sans);
+    font-size:.83rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:.6em;
+    padding:.95em 1.7em;border:1px solid transparent;cursor:pointer;
+    transition:background .35s ease,color .35s ease,border-color .35s ease,transform .35s ease;
+  }
+  .btn-gold{background:var(--gold);color:var(--navy)}
+  .btn-gold:hover{background:var(--gold-lt);transform:translateY(-1px)}
+  .btn-ghost{border-color:var(--line-navy);color:var(--paper)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+  .btn-ink{border-color:var(--ink);color:var(--ink)}
+  .btn-ink:hover{background:var(--navy);border-color:var(--navy);color:var(--paper)}
+  .btn .arw{transition:transform .35s ease}
+  .btn:hover .arw{transform:translateX(4px)}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:60;
+    background:var(--navy);
+    backdrop-filter:blur(0);
+    transition:background .4s ease,box-shadow .4s ease,backdrop-filter .4s ease;
+  }
+  header.solid{
+    background:rgba(8,23,48,.92);
+    backdrop-filter:blur(10px);
+    box-shadow:0 1px 0 var(--line-navy);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+  .brand{display:flex;align-items:center;gap:.7em}
+  .brand .wordmark{
+    font-family:var(--display);font-weight:600;color:var(--paper);
+    font-size:1.05rem;letter-spacing:.16em;
+  }
+  .brand .wordmark .r{color:var(--gold)}
+  .navlinks{display:flex;align-items:center;gap:2.1em}
+  .navlinks a{
+    font-size:.82rem;letter-spacing:.02em;color:rgba(251,250,247,.82);
+    position:relative;padding:.2em 0;font-weight:450;
+  }
+  .navlinks a::after{
+    content:"";position:absolute;left:0;bottom:-2px;height:1px;width:0;background:var(--gold);
+    transition:width .3s ease;
+  }
+  .navlinks a:hover{color:var(--paper)}
+  .navlinks a:hover::after{width:100%}
+  .nav .btn{padding:.7em 1.3em}
+  .menu-btn{display:none;background:none;border:0;cursor:pointer;padding:8px;flex-direction:column;gap:5px}
+  .menu-btn span{width:24px;height:1.5px;background:var(--paper);display:block;transition:.3s}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;background:var(--navy);color:var(--paper);overflow:hidden}
+  .hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 90% at 78% 12%,rgba(180,145,90,.10),transparent 55%);
+  }
+  .hero-watermark{
+    position:absolute;top:50%;right:-8%;transform:translateY(-50%);
+    width:min(760px,72vw);opacity:.5;pointer-events:none;z-index:0;
+  }
+  .hero-inner{position:relative;z-index:2;padding:clamp(72px,12vh,140px) 0 clamp(60px,9vh,110px)}
+  .hero h1{
+    font-size:clamp(2.5rem,5.4vw,4.35rem);
+    font-weight:500;color:var(--paper);max-width:16ch;margin:.5em 0 .55em;
+  }
+  .hero h1 em{font-style:italic;color:var(--gold-lt)}
+  .hero .lede{color:rgba(251,250,247,.78);max-width:52ch}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:2.4em}
+  .capstrip{
+    margin-top:3.4em;padding-top:1.5em;border-top:1px solid var(--line-navy);
+    display:flex;flex-wrap:wrap;gap:.55em 1.6em;
+    font-family:var(--display);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+    color:rgba(251,250,247,.62);
+  }
+  .capstrip span{display:inline-flex;align-items:center;gap:1.6em}
+  .capstrip span+span::before{content:"◆";color:var(--gold);font-size:.5em;transform:translateY(-.15em)}
+
+  /* ---------- Section scaffolding ---------- */
+  section{padding:clamp(72px,10vw,128px) 0}
+  .sec-head{max-width:640px;margin-bottom:clamp(40px,5vw,64px)}
+  .sec-head h2{margin-top:.5em}
+  .paper{background:var(--paper)}
+  .paper-2{background:var(--paper-2)}
+  .center{margin-inline:auto;text-align:center}
+  .center .eyebrow{justify-content:center}
+
+  /* ---------- Approach ---------- */
+  .approach-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(36px,6vw,88px);align-items:start}
+  .approach-body p{color:var(--slate);margin-bottom:1.15em;max-width:52ch}
+  .approach-body p:last-child{margin-bottom:0}
+  .pillars{border-left:1px solid var(--line);padding-left:clamp(28px,4vw,48px);display:grid;gap:1.7em}
+  .pillar{display:flex;gap:1em;align-items:flex-start}
+  .pillar .glyph{margin-top:.35em}
+  .pillar h3{font-family:var(--sans);font-size:.95rem;font-weight:600;letter-spacing:.01em;color:var(--ink);margin-bottom:.2em}
+  .pillar p{font-size:.92rem;color:var(--slate);margin:0}
+
+  /* ---------- Client cards ---------- */
+  .clients{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,32px)}
+  .client{
+    background:var(--white);border:1px solid var(--line);padding:clamp(32px,4vw,46px);
+    position:relative;transition:border-color .4s ease,transform .4s ease;
+  }
+  .client::before{
+    content:"";position:absolute;left:0;top:0;width:100%;height:2px;
+    background:linear-gradient(90deg,var(--gold),transparent);transform:scaleX(0);transform-origin:left;
+    transition:transform .5s ease;
+  }
+  .client:hover{border-color:var(--gold);transform:translateY(-3px)}
+  .client:hover::before{transform:scaleX(1)}
+  .client .kicker{font-family:var(--display);font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+  .client h3{margin:.7em 0 .5em;font-size:1.65rem}
+  .client p{color:var(--slate);font-size:.95rem;margin-bottom:1.3em}
+  .taglist{display:flex;flex-wrap:wrap;gap:.5em}
+  .taglist span{
+    font-size:.74rem;letter-spacing:.03em;color:var(--navy);
+    border:1px solid var(--line);padding:.35em .8em;background:var(--paper);
+  }
+
+  /* ---------- Services ---------- */
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .svc{background:var(--white);padding:clamp(28px,3vw,40px);transition:background .4s ease}
+  .svc:hover{background:var(--paper)}
+  .svc .glyph{margin-bottom:1.1em}
+  .svc h3{font-family:var(--sans);font-size:1.02rem;font-weight:600;letter-spacing:.005em;margin-bottom:.55em}
+  .svc p{font-size:.9rem;color:var(--slate);line-height:1.6}
+  .svc .num{font-family:var(--display);font-size:.7rem;letter-spacing:.2em;color:var(--gold);float:right}
+
+  /* ---------- Engagement models ---------- */
+  .models{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3vw,40px)}
+  .model{padding:clamp(34px,4vw,52px);border:1px solid var(--line-navy);position:relative;overflow:hidden}
+  .model .tag{font-family:var(--display);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+  .model h3{font-size:1.75rem;color:var(--paper);margin:.7em 0 .6em;font-family:var(--serif)}
+  .model>p{color:rgba(251,250,247,.72);font-size:.95rem;margin-bottom:1.4em}
+  .model .flow{display:grid;gap:.7em}
+  .model .flow div{
+    display:flex;gap:.8em;align-items:baseline;font-size:.9rem;color:rgba(251,250,247,.85);
+    padding-bottom:.7em;border-bottom:1px solid rgba(255,255,255,.07);
+  }
+  .model .flow div:last-child{border-bottom:0;padding-bottom:0}
+  .model .flow b{font-family:var(--display);font-size:.68rem;letter-spacing:.12em;color:var(--gold);flex:none;width:1.4em}
+
+  /* ---------- Why ---------- */
+  .why{background:var(--navy);color:var(--paper);position:relative;overflow:hidden}
+  .why .wm{position:absolute;left:-6%;bottom:-20%;width:460px;opacity:.4;pointer-events:none}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,90px);position:relative;z-index:2;align-items:center}
+  .why .lede{color:rgba(251,250,247,.78)}
+  .founder{margin-top:1.6em;padding-top:1.6em;border-top:1px solid var(--line-navy);font-size:.95rem;color:rgba(251,250,247,.72);max-width:48ch}
+  .why-points{display:grid;gap:0}
+  .wp{display:flex;gap:1.1em;padding:1.15em 0;border-bottom:1px solid var(--line-navy)}
+  .wp:first-child{padding-top:0}
+  .wp:last-child{border-bottom:0}
+  .wp .glyph{margin-top:.3em}
+  .wp h3{font-family:var(--sans);font-size:1rem;font-weight:600;color:var(--paper);margin-bottom:.15em}
+  .wp p{font-size:.9rem;color:rgba(251,250,247,.66);margin:0}
+
+  /* ---------- Representative work ---------- */
+  .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(22px,3vw,34px)}
+  .work{border:1px solid var(--line);background:var(--white);transition:transform .4s ease,box-shadow .4s ease}
+  .work:hover{transform:translateY(-4px);box-shadow:0 22px 50px -30px rgba(11,30,61,.4)}
+  .work .canvas{background:var(--navy);aspect-ratio:16/9;position:relative;overflow:hidden}
+  .work .canvas svg{position:absolute;inset:0;width:100%;height:100%}
+  .work .body{padding:clamp(24px,3vw,34px)}
+  .work .kicker{font-family:var(--display);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+  .work h3{font-size:1.5rem;margin:.5em 0 .35em}
+  .work .role{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);font-weight:500;margin-bottom:.9em}
+  .work p{font-size:.92rem;color:var(--slate)}
+  .work-note{margin-top:2.4em;font-size:.82rem;color:var(--slate);text-align:center;letter-spacing:.02em}
+
+  /* ---------- Final CTA ---------- */
+  .final{background:var(--navy-deep);color:var(--paper);text-align:center;position:relative;overflow:hidden}
+  .final .wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:620px;opacity:.42;pointer-events:none}
+  .final .inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
+  .final h2{color:var(--paper);margin:.5em 0 .5em}
+  .final p{color:rgba(251,250,247,.76);margin-bottom:2em;font-size:1.05rem}
+  .final .emails{margin-top:2.2em;font-family:var(--display);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(251,250,247,.6)}
+  .final .emails a{color:var(--gold-lt)}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink);color:rgba(251,250,247,.62);padding:clamp(56px,7vw,84px) 0 40px}
+  .foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+  .foot-brand .wordmark{font-family:var(--display);font-weight:600;color:var(--paper);font-size:1.05rem;letter-spacing:.16em}
+  .foot-brand .wordmark .r{color:var(--gold)}
+  .foot-brand p{margin-top:1.1em;font-size:.88rem;max-width:34ch;color:rgba(251,250,247,.5)}
+  .foot-col h4{font-family:var(--display);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2em;font-weight:500}
+  .foot-col a{display:block;font-size:.88rem;padding:.3em 0;color:rgba(251,250,247,.62);transition:color .3s}
+  .foot-col a:hover{color:var(--paper)}
+  .foot-bottom{margin-top:clamp(40px,5vw,64px);padding-top:26px;border-top:1px solid rgba(255,255,255,.09);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.78rem;color:rgba(251,250,247,.42)}
+
+  /* ---------- Reveal ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.6,.2,1),transform .8s cubic-bezier(.2,.6,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:1000px){
+    .svc-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:860px){
+    .navlinks{display:none}
+    .nav .btn{display:none}
+    .menu-btn{display:flex}
+    .approach-grid,.why-grid,.models,.clients,.work-grid,.foot-top{grid-template-columns:1fr}
+    .pillars{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:32px}
+    .why .wm{display:none}
+    .foot-top{gap:36px}
+    .mobile-nav.open{display:flex}
+  }
+  @media(max-width:560px){
+    .svc-grid{grid-template-columns:1fr}
+    .capstrip{font-size:.66rem;gap:.5em .9em}
+  }
+
+  /* Mobile nav sheet */
+  .mobile-nav{
+    display:none;position:fixed;inset:0;z-index:70;background:var(--navy-deep);
+    flex-direction:column;justify-content:center;gap:1.6em;padding:0 var(--gutter);
+  }
+  .mobile-nav a{font-family:var(--serif);font-size:1.8rem;color:var(--paper)}
+  .mobile-nav a:hover{color:var(--gold)}
+  .mobile-nav .close{position:absolute;top:26px;right:var(--gutter);background:none;border:0;color:var(--paper);font-size:2rem;cursor:pointer;line-height:1}
+  .mobile-nav .btn{margin-top:1em;align-self:flex-start}
+
+  .logo-img{height:44px;width:auto;display:block}
+  .foot-logo{height:40px}
+  @media(max-width:560px){.logo-img{height:38px}}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header id="hdr">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="R Financials home">
+      <img class="logo-img" src="data:image/png;base64,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" alt="R Financials" />
+    </a>
+    <nav class="navlinks" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#approach">Outsourced Finance</a>
+      <a href="#models">Transactions</a>
+      <a href="#work">Work</a>
+      <a href="#why">About</a>
+      <a href="#contact">Insights</a>
+    </nav>
+    <a class="btn btn-gold" href="#contact">Discuss an Engagement</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="close" id="closeNav" aria-label="Close menu">&times;</button>
+  <a href="#services">Services</a>
+  <a href="#approach">Outsourced Finance</a>
+  <a href="#models">Transactions</a>
+  <a href="#work">Representative Work</a>
+  <a href="#why">About</a>
+  <a href="#contact">Contact</a>
+  <a class="btn btn-gold" href="#contact">Discuss an Engagement</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<main id="top">
+<section class="hero">
+  <svg class="hero-watermark" viewBox="0 0 400 400" aria-hidden="true">
+    <g fill="none" stroke="#C9A96A" stroke-width="1">
+      <rect x="65" y="65" width="270" height="270" transform="rotate(45 200 200)" style="opacity:.55"/>
+      <rect x="97.5" y="97.5" width="205" height="205" transform="rotate(45 200 200)" style="opacity:.4"/>
+      <rect x="130" y="130" width="140" height="140" transform="rotate(45 200 200)" style="opacity:.3"/>
+      <rect x="162.5" y="162.5" width="75" height="75" transform="rotate(45 200 200)" style="opacity:.22"/>
+    </g>
+  </svg>
+  <div class="wrap hero-inner">
+    <span class="eyebrow">Outsourced Finance · Investment &amp; Strategic Advisory</span>
+    <h1>Institutional-quality financial support, <em>without adding full-time headcount.</em></h1>
+    <p class="lede">An outsourced analytical bench for investment firms and operating companies that need experienced financial expertise, available as an extension of your team as priorities evolve.</p>
+    <div class="cta-row">
+      <a class="btn btn-gold" href="#contact">Discuss an Engagement <span class="arw">→</span></a>
+      <a class="btn btn-ghost" href="#services">View Services</a>
+    </div>
+    <div class="capstrip">
+      <span>Financial Modeling</span><span>Investment Analysis</span><span>Valuation</span><span>Due Diligence</span><span>M&amp;A</span><span>Strategic Finance</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPROACH ============ -->
+<section id="approach">
+  <div class="wrap">
+    <div class="approach-grid">
+      <div class="approach-body reveal">
+        <span class="eyebrow">The R Financials Approach</span>
+        <h2 style="margin:.5em 0 .7em">Senior-level financial expertise, embedded into your team.</h2>
+        <p>R Financials functions as an extension of your existing team: an experienced analytical resource you can rely on for ongoing modeling, underwriting, diligence and strategic finance, rather than a consultant who arrives for a few weeks and leaves.</p>
+        <p>The same capability supports concentrated, transaction-specific work: an acquisition, a fundraise, an M&amp;A process or a strategic review, executed to the standard investment professionals and boards expect.</p>
+      </div>
+      <div class="pillars reveal">
+        <div class="pillar">
+          <svg class="glyph" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2.75" y="2.75" width="8.5" height="8.5" transform="rotate(45 7 7)" fill="none" stroke="#B4915A"/></svg>
+          <div><h3>Banker-grade Support</h3><p>Output built to the rigor of an institutional M&amp;A desk.</p></div>
+        </div>
+        <div class="pillar">
+          <svg class="glyph" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2.75" y="2.75" width="8.5" height="8.5" transform="rotate(45 7 7)" fill="none" stroke="#B4915A"/></svg>
+          <div><h3>Embedded Analytical Bench</h3><p>Ongoing capacity that stays available as your priorities shift.</p></div>
+        </div>
+        <div class="pillar">
+          <svg class="glyph" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2.75" y="2.75" width="8.5" height="8.5" transform="rotate(45 7 7)" fill="none" stroke="#B4915A"/></svg>
+          <div><h3>Flexible Engagement</h3><p>Retainer, project or transaction, scoped to the situation.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLIENTS ============ -->
+<section class="paper" id="clients">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Who We Work With</span>
+      <h2>Two kinds of clients. One analytical bench.</h2>
+    </div>
+    <div class="clients">
+      <div class="client reveal">
+        <span class="kicker">Investment Firms</span>
+        <h3>When deal flow outruns your team.</h3>
+        <p>Additional underwriting and modeling capacity when a full-time hire isn't justified, plus someone who can independently own analytical workstreams end to end.</p>
+        <div class="taglist">
+          <span>Family Offices</span><span>Private Equity</span><span>Independent Sponsors</span><span>Search Funds</span><span>Venture Capital</span><span>Holding Companies</span><span>Boutique Banks</span>
+        </div>
+      </div>
+      <div class="client reveal">
+        <span class="kicker">Operating Companies</span>
+        <h3>When decisions need banker-grade rigor.</h3>
+        <p>Senior financial expertise that bridges finance, strategy and corporate development, applied to fundraises, acquisitions, forecasting and board-ready materials.</p>
+        <div class="taglist">
+          <span>Founder-Led</span><span>Growth-Stage</span><span>Preparing to Raise</span><span>Evaluating M&amp;A</span><span>$20M–$500M+ Revenue</span><span>Lean Finance Teams</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Capabilities</span>
+      <h2>What R Financials owns for you.</h2>
+      <p class="lede" style="margin-top:.8em">Decision-useful analysis, not spreadsheets. Every engagement moves from data, to analysis, to judgment, to recommendation.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc reveal"><span class="num">01</span><svg class="glyph" width="18" height="18" viewBox="0 0 18 18"><rect x="3.7" y="3.7" width="10.6" height="10.6" transform="rotate(45 9 9)" fill="none" stroke="#B4915A"/></svg>
+        <h3>Financial Modeling</h3><p>Three-statement, operating, DCF, LBO and acquisition models built as decision-making tools, with scenarios, sensitivities and returns.</p></div>
+      <div class="svc reveal"><span class="num">02</span><svg class="glyph" width="18" height="18" viewBox="0 0 18 18"><rect x="3.7" y="3.7" width="10.6" height="10.6" transform="rotate(45 9 9)" fill="none" stroke="#B4915A"/></svg>
+        <h3>Investment Analysis</h3><p>Underwriting, investment memoranda, return and risk analysis, upside/downside cases and portfolio monitoring, driven to a clear recommendation.</p></div>
+      <div class="svc reveal"><span class="num">03</span><svg class="glyph" width="18" height="18" viewBox="0 0 18 18"><rect x="3.7" y="3.7" width="10.6" height="10.6" transform="rotate(45 9 9)" fill="none" stroke="#B4915A"/></svg>
+        <h3>Valuation &amp; Transactions</h3><p>DCF, trading and transaction comparables, precedent analysis, accretion/dilution, entry/exit multiples and transaction structuring.</p></div>
+      <div class="svc reveal"><span class="num">04</span><svg class="glyph" width="18" height="18" viewBox="0 0 18 18"><rect x="3.7" y="3.7" width="10.6" height="10.6" transform="rotate(45 9 9)" fill="none" stroke="#B4915A"/></svg>
+        <h3>Due Diligence</h3><p>Quality-of-earnings, margin and working-capital analysis, revenue and concentration review, key risks and deal-breaker identification.</p></div>
+      <div class="svc reveal"><span class="num">05</span><svg class="glyph" width="18" height="18" viewBox="0 0 18 18"><rect x="3.7" y="3.7" width="10.6" height="10.6" transform="rotate(45 9 9)" fill="none" stroke="#B4915A"/></svg>
+        <h3>Strategic Finance</h3><p>FP&amp;A, forecasting, profitability and KPI analysis, capital allocation and scenario planning for major decisions.</p></div>
+      <div class="svc reveal"><span class="num">06</span><svg class="glyph" width="18" height="18" viewBox="0 0 18 18"><rect x="3.7" y="3.7" width="10.6" height="10.6" transform="rotate(45 9 9)" fill="none" stroke="#B4915A"/></svg>
+        <h3>Transaction Support</h3><p>Acquisitions, sell-side processes and capital raises, spanning buyer/investor analysis, CIM development, transaction models and execution.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENGAGEMENT MODELS ============ -->
+<section class="why" id="models" style="background:var(--navy-deep)">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:640px">
+      <span class="eyebrow">Two Ways to Engage</span>
+      <h2 style="color:var(--paper)">Scoped to the situation.</h2>
+    </div>
+    <div class="models">
+      <div class="model reveal">
+        <span class="tag">Product 01</span>
+        <h3>Transaction &amp; Project Support</h3>
+        <p>Concentrated analytical support for a specific situation, owned end to end.</p>
+        <div class="flow">
+          <div><b>◆</b><span><strong style="color:var(--paper);font-weight:600">Acquisition</strong>: underwriting → LBO → diligence → valuation → memo</span></div>
+          <div><b>◆</b><span><strong style="color:var(--paper);font-weight:600">Fundraise</strong>: model → valuation → projections → investor materials</span></div>
+          <div><b>◆</b><span><strong style="color:var(--paper);font-weight:600">M&amp;A Process</strong>: buyer analysis → valuation → transaction materials</span></div>
+          <div><b>◆</b><span><strong style="color:var(--paper);font-weight:600">Strategic Review</strong>: forecast → scenarios → profitability → recommendation</span></div>
+        </div>
+      </div>
+      <div class="model reveal" style="border-color:var(--gold)">
+        <span class="tag">Product 02 · The Core Offering</span>
+        <h3>Outsourced &amp; Embedded Resource</h3>
+        <p>Your finance and analytical team, extended. Ongoing access that stays available as priorities evolve.</p>
+        <div class="flow">
+          <div><b>◆</b><span><strong style="color:var(--paper);font-weight:600">Investment Firms</strong>: deal underwriting, portfolio monitoring, IC materials, diligence</span></div>
+          <div><b>◆</b><span><strong style="color:var(--paper);font-weight:600">Operating Companies</strong>: FP&amp;A, forecasting, strategic finance, board reporting</span></div>
+          <div><b>◆</b><span>Recurring capability without building the function entirely in-house.</span></div>
+          <div><b>◆</b><span>Not staff augmentation, but an experienced professional who owns the work.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY / ABOUT ============ -->
+<section class="why" id="why">
+  <svg class="wm" viewBox="0 0 400 400" aria-hidden="true"><g fill="none" stroke="#C9A96A" stroke-width="1">
+    <rect x="80" y="80" width="240" height="240" transform="rotate(45 200 200)" style="opacity:.5"/>
+    <rect x="120" y="120" width="160" height="160" transform="rotate(45 200 200)" style="opacity:.35"/>
+    <rect x="160" y="160" width="80" height="80" transform="rotate(45 200 200)" style="opacity:.25"/>
+  </g></svg>
+  <div class="wrap">
+    <div class="why-grid">
+      <div class="reveal">
+        <span class="eyebrow">Why R Financials</span>
+        <h2 style="color:var(--paper);margin:.5em 0 .6em">You work directly with the person doing the analysis.</h2>
+        <p class="lede">No layers, no handoffs, no juniors learning on your deal. Institutional-quality output, delivered by a senior professional who owns it end to end.</p>
+        <p class="founder">R Financials is led by <strong style="color:var(--gold-lt);font-weight:600">Ryan</strong>, a former Nomura investment banker who spent roughly 3.5 years within the Consumer &amp; Retail group in New York. Since 2022 he has worked remotely with investment firms and operating companies, industry agnostic, across consumer, technology, digital assets, healthcare, financial services, real estate and more.</p>
+      </div>
+      <div class="why-points reveal">
+        <div class="wp"><svg class="glyph" width="13" height="13" viewBox="0 0 13 13"><rect x="2.6" y="2.6" width="7.8" height="7.8" transform="rotate(45 6.5 6.5)" fill="none" stroke="#B4915A"/></svg><div><h3>Former Nomura M&amp;A</h3><p>~3.5 years on an institutional M&amp;A desk in New York.</p></div></div>
+        <div class="wp"><svg class="glyph" width="13" height="13" viewBox="0 0 13 13"><rect x="2.6" y="2.6" width="7.8" height="7.8" transform="rotate(45 6.5 6.5)" fill="none" stroke="#B4915A"/></svg><div><h3>Direct Senior-Level Execution</h3><p>The person you hire is the person building the work.</p></div></div>
+        <div class="wp"><svg class="glyph" width="13" height="13" viewBox="0 0 13 13"><rect x="2.6" y="2.6" width="7.8" height="7.8" transform="rotate(45 6.5 6.5)" fill="none" stroke="#B4915A"/></svg><div><h3>Investor + Operator Perspective</h3><p>Analysis from both the investor's and management's side.</p></div></div>
+        <div class="wp"><svg class="glyph" width="13" height="13" viewBox="0 0 13 13"><rect x="2.6" y="2.6" width="7.8" height="7.8" transform="rotate(45 6.5 6.5)" fill="none" stroke="#B4915A"/></svg><div><h3>Industry Agnostic</h3><p>Broad experience across sectors and asset types.</p></div></div>
+        <div class="wp"><svg class="glyph" width="13" height="13" viewBox="0 0 13 13"><rect x="2.6" y="2.6" width="7.8" height="7.8" transform="rotate(45 6.5 6.5)" fill="none" stroke="#B4915A"/></svg><div><h3>Flexible, Embedded Engagements</h3><p>Retainer or project, scaled to how your needs evolve.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REPRESENTATIVE WORK ============ -->
+<section class="paper" id="work">
+  <div class="wrap">
+    <div class="sec-head center reveal" style="max-width:620px">
+      <span class="eyebrow">Representative Work</span>
+      <h2>See the level of the work.</h2>
+      <p class="lede" style="margin:.8em auto 0">A sense of the analytical depth and the kind of output R Financials delivers, without revealing confidential client information.</p>
+    </div>
+    <div class="work-grid">
+
+      <div class="work reveal">
+        <div class="canvas">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g stroke="#B4915A" fill="none" stroke-width="1" opacity=".85">
+              <line x1="30" y1="150" x2="290" y2="150"/><line x1="30" y1="30" x2="30" y2="150"/>
+              <rect x="52" y="110" width="16" height="40" fill="#B4915A" opacity=".55" stroke="none"/>
+              <rect x="88" y="92" width="16" height="58" fill="#B4915A" opacity=".55" stroke="none"/>
+              <rect x="124" y="78" width="16" height="72" fill="#B4915A" opacity=".7" stroke="none"/>
+              <rect x="160" y="64" width="16" height="86" fill="#B4915A" opacity=".7" stroke="none"/>
+              <rect x="196" y="52" width="16" height="98" fill="#C9A96A" opacity=".9" stroke="none"/>
+              <rect x="232" y="42" width="16" height="108" fill="#C9A96A" opacity=".9" stroke="none"/>
+              <polyline points="60,120 96,104 132,88 168,70 204,58 240,46" stroke="#FBFAF7" stroke-width="1.4" opacity=".8"/>
+            </g>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="kicker">Family Office · Nine-Figure</span>
+          <h3>Outsourced Analytical Lead</h3>
+          <div class="role">Ongoing · Embedded</div>
+          <p>Investment analysis, collateralized financings, portfolio monitoring, scenario analysis, diligence, investment memoranda and term sheets, as a standing extension of the team.</p>
+        </div>
+      </div>
+
+      <div class="work reveal">
+        <div class="canvas">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g stroke="#B4915A" fill="none" stroke-width="1">
+              <rect x="40" y="34" width="240" height="112" opacity=".4"/>
+              <line x1="40" y1="62" x2="280" y2="62" opacity=".4"/>
+              <line x1="120" y1="34" x2="120" y2="146" opacity=".3"/><line x1="200" y1="34" x2="200" y2="146" opacity=".3"/>
+              <line x1="52" y1="80" x2="108" y2="80" stroke="#C9A96A" stroke-width="1.4"/>
+              <line x1="52" y1="98" x2="108" y2="98" stroke="#C9A96A" stroke-width="1.4" opacity=".7"/>
+              <line x1="52" y1="116" x2="108" y2="116" stroke="#C9A96A" stroke-width="1.4" opacity=".7"/>
+              <line x1="132" y1="80" x2="188" y2="80" opacity=".5"/><line x1="132" y1="98" x2="188" y2="98" opacity=".5"/><line x1="132" y1="116" x2="188" y2="116" opacity=".5"/>
+              <line x1="212" y1="80" x2="268" y2="80" opacity=".5"/><line x1="212" y1="98" x2="268" y2="98" opacity=".5"/><line x1="212" y1="116" x2="268" y2="116" opacity=".5"/>
+            </g>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="kicker">Healthcare · Investment Banking</span>
+          <h3>Sell-Side M&amp;A Support</h3>
+          <div class="role">Transaction</div>
+          <p>Financial analysis, valuation, buyer research, transaction analysis and process support across healthcare transactions.</p>
+        </div>
+      </div>
+
+      <div class="work reveal">
+        <div class="canvas">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g fill="none" stroke-width="1">
+              <line x1="30" y1="150" x2="290" y2="150" stroke="#B4915A" opacity=".5"/>
+              <path d="M30,140 C90,120 130,70 180,58 C220,48 260,40 290,34" stroke="#C9A96A" stroke-width="1.6"/>
+              <path d="M30,140 C90,120 130,70 180,58 C220,48 260,40 290,34 L290,150 L30,150 Z" fill="#B4915A" opacity=".12" stroke="none"/>
+              <circle cx="180" cy="58" r="3" fill="#FBFAF7" stroke="none"/>
+              <line x1="180" y1="58" x2="180" y2="150" stroke="#FBFAF7" stroke-dasharray="3 3" opacity=".5"/>
+            </g>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="kicker">Growth Companies · $2–3M Raises</span>
+          <h3>Fundraising &amp; Advisory</h3>
+          <div class="role">Transaction · Advisory</div>
+          <p>Financial models, valuation analyses and investor materials for growth-stage companies preparing to raise capital.</p>
+        </div>
+      </div>
+
+      <div class="work reveal">
+        <div class="canvas">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g fill="none" stroke="#B4915A" stroke-width="1">
+              <rect x="60" y="70" width="40" height="80" opacity=".7"/>
+              <rect x="110" y="50" width="40" height="100" opacity=".8"/>
+              <rect x="160" y="80" width="40" height="70" opacity=".6"/>
+              <rect x="210" y="40" width="40" height="110" fill="#B4915A" opacity=".25" stroke="#C9A96A"/>
+              <line x1="40" y1="150" x2="280" y2="150" stroke="#C9A96A" opacity=".6"/>
+              <line x1="60" y1="60" x2="250" y2="60" stroke="#FBFAF7" stroke-dasharray="4 4" opacity=".4"/>
+            </g>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="kicker">Real Estate · $10–15M Projects</span>
+          <h3>Development &amp; Investment Analysis</h3>
+          <div class="role">Transaction · Advisory</div>
+          <p>Feasibility analysis, financial modeling, returns analysis, capital structuring, fundraising and cash-flow analysis across development projects.</p>
+        </div>
+      </div>
+
+    </div>
+    <p class="work-note">Illustrative of scope and rigor. No confidential client information is shown.</p>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final" id="contact">
+  <svg class="wm" viewBox="0 0 400 400" aria-hidden="true"><g fill="none" stroke="#C9A96A" stroke-width="1">
+    <rect x="80" y="80" width="240" height="240" transform="rotate(45 200 200)" style="opacity:.5"/>
+    <rect x="120" y="120" width="160" height="160" transform="rotate(45 200 200)" style="opacity:.35"/>
+    <rect x="160" y="160" width="80" height="80" transform="rotate(45 200 200)" style="opacity:.25"/>
+  </g></svg>
+  <div class="wrap">
+    <div class="inner reveal">
+      <span class="eyebrow" style="justify-content:center">Start a Conversation</span>
+      <h2>Need additional financial or analytical capacity?</h2>
+      <p>Whether you're evaluating an acquisition, preparing for a fundraise, managing a portfolio, or need ongoing financial support, R Financials can serve as an experienced extension of your team.</p>
+      <a class="btn btn-gold" href="mailto:ryan@rfinancials.co">Discuss an Engagement <span class="arw">→</span></a>
+      <div class="emails">
+        <a href="mailto:ryan@rfinancials.co">ryan@rfinancials.co</a> &nbsp;·&nbsp; <a href="mailto:info@rfinancials.co">info@rfinancials.co</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="brand" style="gap:.6em">
+          <img class="logo-img foot-logo" src="data:image/png;base64,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" alt="R Financials" />
+        </div>
+        <p>An outsourced analytical bench for investment firms and operating companies. Institutional-quality finance, embedded into your team.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <a href="#services">Financial Modeling</a>
+        <a href="#services">Investment Analysis</a>
+        <a href="#services">Valuation &amp; Transactions</a>
+        <a href="#services">Due Diligence</a>
+        <a href="#services">Strategic Finance</a>
+      </div>
+      <div class="foot-col">
+        <h4>Engage</h4>
+        <a href="#approach">Outsourced Finance</a>
+        <a href="#models">Transaction Support</a>
+        <a href="#work">Representative Work</a>
+        <a href="#why">About Ryan</a>
+        <a href="#contact">Insights</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="mailto:ryan@rfinancials.co">ryan@rfinancials.co</a>
+        <a href="mailto:info@rfinancials.co">info@rfinancials.co</a>
+        <a href="https://rfinancials.co">rfinancials.co</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 R Financials. All rights reserved.</span>
+      <span>Institutional-Quality Financial &amp; Strategic Support</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky header state
+  const hdr=document.getElementById('hdr');
+  const onScroll=()=>hdr.classList.toggle('solid',window.scrollY>24);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+  // Mobile nav
+  const mb=document.getElementById('menuBtn'),mn=document.getElementById('mobileNav'),cn=document.getElementById('closeNav');
+  const openNav=()=>{mn.classList.add('open');document.body.style.overflow='hidden'};
+  const closeNav=()=>{mn.classList.remove('open');document.body.style.overflow=''};
+  mb.addEventListener('click',openNav);cn.addEventListener('click',closeNav);
+  mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeNav));
+
+  // Scroll reveal
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3*70)+'ms';io.observe(el)});
+</script>
+</body>
+</html>
